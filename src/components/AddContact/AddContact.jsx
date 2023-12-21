@@ -4,20 +4,32 @@ import {
   StyledForm,
   StyledInput,
 } from './AddContact.styled';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/contactSlice';
 import { nanoid } from '@reduxjs/toolkit';
+import { contactsData } from '../../redux/selectors';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AddContactForm = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(contactsData);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  const notify = () => toast('Name exists in your list!');
+
   const handleSubmit = e => {
     e.preventDefault();
-    const newContact = { id: nanoid(), name, number };
 
-    dispatch(addContact(newContact));
+    const isExist = contacts.contacts.some(contact => contact.name === name);
+
+    if (isExist) {
+      notify();
+    } else {
+      const newContact = { id: nanoid(), name, number };
+      dispatch(addContact(newContact));
+    }
 
     setName('');
     setNumber('');

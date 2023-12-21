@@ -18,7 +18,7 @@ function ContactList() {
   return (
     <div>
       <h2>Contact list</h2>
-      {contacts.length !== 0 ? (
+      {filteredData.length !== 0 ? (
         <StyledUl>
           {filteredData.map(contact => (
             <ContactItem {...contact} key={contact.id} />
