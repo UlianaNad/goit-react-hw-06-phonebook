@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import { StyledLi } from './ContactItem.styled';
 import { StyledButton, StyledSpanName, StyledSpanNumber } from '../ContactList.styled';
 import { useDispatch } from 'react-redux';
