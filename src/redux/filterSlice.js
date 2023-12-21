@@ -17,3 +17,5 @@ const filterSlice = createSlice({
 export const {setFilter} = filterSlice.actions;
 
 export const filterReducer = filterSlice.reducer;
+
+export const searchContact = state => state.filter;
