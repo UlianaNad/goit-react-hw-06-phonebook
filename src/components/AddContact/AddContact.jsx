@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
 import { StyledButtonSubmit, StyledForm, StyledInput } from './AddContact.styled';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactSlice';
+import { nanoid } from '@reduxjs/toolkit';
 
-export const AddContactForm = ({addContact}) => {
 
+export const AddContactForm = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('')
   
 
-  const handleChangeInput = ({ target }) => {
-    if(target.name === 'name'){
-      setName(target.value);
-    }else {
-      setNumber(target.value)
-    }
-  };
-
   const handleSubmit = e => {
     e.preventDefault();
-    addContact({name, number});
+    const newContact = {id:nanoid(), name, number}
+    console.log(newContact);
+    dispatch(addContact(newContact));
 
     setName('')
     setNumber('')
@@ -29,7 +27,7 @@ export const AddContactForm = ({addContact}) => {
         <StyledForm onSubmit={handleSubmit}>
           <StyledInput
             value={name}
-            onChange={handleChangeInput}
+           onChange={e => setName(e.target.value)}
             type="text"
             name="name"
             required
@@ -37,7 +35,7 @@ export const AddContactForm = ({addContact}) => {
           />
           <StyledInput
             value={number}
-            onChange={handleChangeInput}
+            onChange={e => setNumber(e.target.value)}
             type="tel"
             name="number"
             required
@@ -50,6 +48,6 @@ export const AddContactForm = ({addContact}) => {
     );
 }
 
-AddContactForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
-};
+// AddContactForm.propTypes = {
+//   addContact: PropTypes.func.isRequired,
+// };
